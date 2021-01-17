@@ -1,0 +1,70 @@
+@extends('adminlte::page')
+
+@section('styles')
+
+<!-- DataTables -->
+<link rel="stylesheet" href="{{url('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+@endsection
+
+@section('content')
+    <!-- Content Header (Page header) -->
+     <!-- /.row -->
+<div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Test Data Mahasiswa</h3>
+              </div>
+                <div class="card-header">
+                <h3 class="card-title">Bordered Table</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Nama</th>
+                      <th>Nim</th>
+                      <th>Prodi</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        @foreach ($mahasiswa as $data)
+                    <tr>
+                    
+                      <td>{{ $data->nama }}</td>
+                      <td>{{ $data->nim }}</td>
+                      <td>{{ $data->prodi }}</td>
+                              <td class="text-center">
+                <form action="{{ route('mahasiswa.destroy',$mahasiswa->id) }}" method="POST">
+
+                    <a class="btn btn-info btn-sm" href="{{ route('mahasiswa.show',$mahasiswa->id) }}">Show</a>
+
+ <a class="btn btn-primary btn-sm" href="{{ route('mahasiswa.edit',$mahasiswa->id) }}">Edit</a>
+
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                    </tr>
+                  </tbody>
+                  @endforeach
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.card -->
+
+        </div>
+        <!-- /.row -->
+@endsection
